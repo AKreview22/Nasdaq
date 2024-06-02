@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "Nasdaq",
+    "slug": "nasdaq",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/nasdaq-splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0796C7"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ahmedkamal.nasdaq"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/nasdaq-logo-white.png",
+        "backgroundColor": "#0796C7"
+      },
+      "package": "com.ahmedkamal.nasdaq"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "337428b2-c642-455f-91fb-4890626a62d5"
+      }
+    },
+    "owner": "ahmedkamal"
+  }
+}
