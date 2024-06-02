@@ -71,6 +71,8 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     alignItems: 'center',
     height: 180,
+    maxWidth: 160,
+    width: 'auto',
     justifyContent: 'center',
     flexDirection: 'column',
     flexShrink: 1,

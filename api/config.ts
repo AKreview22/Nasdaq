@@ -2,8 +2,8 @@ import axios, { AxiosInstance, AxiosError } from 'axios';
 import axiosRetry from 'axios-retry';
 import rateLimit from 'axios-rate-limit';
 
-export const API_KEY = "KmBmY2Nn1qYT7q1tAnNYrpd7mU_gisT7";
-const BASE_URL = "https://api.polygon.io/v3";
+export const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
+const BASE_URL = process.env.EXPO_PUBLIC_BASE_URL;
 
 // Create an axios instance with rate limiting
 const axiosInstance: AxiosInstance = rateLimit(axios.create({

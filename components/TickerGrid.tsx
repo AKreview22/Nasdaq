@@ -1,8 +1,10 @@
 import React, { useRef } from 'react';
-import { FlatList, View, StyleSheet, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
+import { FlatList, View, StyleSheet, NativeSyntheticEvent, NativeScrollEvent, Dimensions } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import StockItem from '@/components/StockItem';
 import { Ticker } from '@/types/Ticker';
+
+const { width } = Dimensions.get('window');
 
 interface TickerGridProps {
   data: Ticker[];
@@ -13,8 +15,10 @@ interface TickerGridProps {
 const TickerGrid: React.FC<TickerGridProps> = ({ data, onEndReached, isSearching = false }) => {
   const flatListRef = useRef<FlatList<Ticker>>(null);
 
+  const numColumns = Math.floor(width / 160);
+
   const renderItem = ({ item }: { item: Ticker }) => (
-    <StockItem stock={item} />
+      <StockItem stock={item} />
   );
 
   const ListEmptyComponent = () => (
@@ -33,7 +37,6 @@ const TickerGrid: React.FC<TickerGridProps> = ({ data, onEndReached, isSearching
   };
 
   return (
-    <View style={styles.container}>
       <FlatList
         ref={flatListRef}
         data={data}
@@ -42,19 +45,18 @@ const TickerGrid: React.FC<TickerGridProps> = ({ data, onEndReached, isSearching
         onEndReached={onEndReached}
         onEndReachedThreshold={0.5}
         onScroll={handleScroll}
-        numColumns={2}
+        numColumns={numColumns}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         ListEmptyComponent={ListEmptyComponent}
+        contentContainerStyle = {styles.container}
       />
-    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
 

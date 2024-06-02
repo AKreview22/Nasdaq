@@ -40,7 +40,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ setSearchQuery }) => {
           <Ionicons name="search" size={20} color="#888" style={styles.searchIcon} />
           <TextInput
             style={styles.searchInput}
-            placeholder="Search for stocks"
+            placeholder="Search for stocks.."
             placeholderTextColor="#888"
             value={localQuery}
             onChangeText={setLocalQuery}
