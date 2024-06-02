@@ -1,4 +1,4 @@
-import axiosInstance from './config';
+import axiosInstance from "./config";
 
 export interface TickersParams {
   ticker?: string;
@@ -17,11 +17,10 @@ export interface TickersParams {
 
 export const getTickers = async (params: TickersParams = {}) => {
   try {
-    
-    const response = await axiosInstance.get('/reference/tickers', { params });
+    const response = await axiosInstance.get("/reference/tickers", { params });
     return response.data;
   } catch (error) {
-    console.error('Error fetching tickers:', error);
+    console.error("Error fetching tickers:", error);
     throw error;
   }
 };

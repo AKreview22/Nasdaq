@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
-import { ThemedView } from '@/components/ThemedView';
-import { useTickers } from '@/hooks/useTickers';
-import { useTickerSearch } from '@/hooks/useTickerSearch';
-import useTickerStore from '@/stores/useTickerStore';
-import useSearchStore from '@/stores/useSearchStore';
-import SearchBar from '@/components/SearchBar';
-import Toast, { BaseToast } from 'react-native-toast-message';
-import TickerGrid from '@/components/TickerGrid';
-import { Ticker } from '@/types/Ticker';
+import React, { useEffect, useState } from "react";
+import { StyleSheet } from "react-native";
+import { ThemedView } from "@/components/ThemedView";
+import { useTickers } from "@/hooks/useTickers";
+import { useTickerSearch } from "@/hooks/useTickerSearch";
+import useTickerStore from "@/stores/useTickerStore";
+import useSearchStore from "@/stores/useSearchStore";
+import SearchBar from "@/components/SearchBar";
+import Toast, { BaseToast } from "react-native-toast-message";
+import TickerGrid from "@/components/TickerGrid";
+import { Ticker } from "@/types/Ticker";
 
 const StocksView: React.FC = () => {
-
   const {
     tickers,
     setTickers,
@@ -39,10 +38,7 @@ const StocksView: React.FC = () => {
     setStatus: setTickerStatus,
   });
 
-  const {
-    searchTickers,
-    errorMessage: searchError,
-  } = useTickerSearch({
+  const { searchTickers, errorMessage: searchError } = useTickerSearch({
     searchResults,
     setSearchResults,
     status: searchStatus,
@@ -67,20 +63,20 @@ const StocksView: React.FC = () => {
   useEffect(() => {
     if (tickerError) {
       Toast.show({
-        type: 'error',
-        text1: 'Error fetching tickers',
+        type: "error",
+        text1: "Error fetching tickers",
         text2: tickerError,
-        position: 'bottom',
+        position: "bottom",
         visibilityTime: 5000,
       });
     }
 
     if (searchError) {
       Toast.show({
-        type: 'error',
-        text1: 'Error searching tickers',
+        type: "error",
+        text1: "Error searching tickers",
         text2: searchError,
-        position: 'bottom',
+        position: "bottom",
         visibilityTime: 5000,
       });
     }
@@ -101,7 +97,10 @@ const StocksView: React.FC = () => {
       <TickerGrid
         data={displayedTickers}
         onEndReached={() => {
-          if ((!isSearching && tickerStatus !== 'loading') || (isSearching && searchStatus !== 'loading')) {
+          if (
+            (!isSearching && tickerStatus !== "loading") ||
+            (isSearching && searchStatus !== "loading")
+          ) {
             fetchNextPage();
           }
         }}
@@ -133,18 +132,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   toastError: {
-    backgroundColor: '#FF6347',
-    borderLeftColor: '#FF4500',
+    backgroundColor: "#FF6347",
+    borderLeftColor: "#FF4500",
     borderLeftWidth: 5,
   },
   toastText1: {
     fontSize: 15,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
+    fontWeight: "bold",
+    color: "#FFFFFF",
   },
   toastText2: {
     fontSize: 13,
-    color: '#FFFFFF',
+    color: "#FFFFFF",
   },
 });
 

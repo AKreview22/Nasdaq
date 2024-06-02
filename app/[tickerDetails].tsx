@@ -1,11 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, ActivityIndicator, ScrollView, Image, Text, View, Linking, TouchableOpacity } from 'react-native';
-import { ThemedView } from '@/components/ThemedView';
-import { getTickerDetails } from '@/api';
-import { useLocalSearchParams } from 'expo-router';
-import { ThemedText } from '@/components/ThemedText';
-import { API_KEY } from '@/api/config';
-import { ThemedContainer } from '@/components/ThemedContainer';
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  ActivityIndicator,
+  ScrollView,
+  Image,
+  Text,
+  View,
+  Linking,
+  TouchableOpacity,
+} from "react-native";
+import { ThemedView } from "@/components/ThemedView";
+import { getTickerDetails } from "@/api";
+import { useLocalSearchParams } from "expo-router";
+import { ThemedText } from "@/components/ThemedText";
+import { API_KEY } from "@/api/config";
+import { ThemedContainer } from "@/components/ThemedContainer";
 
 const TickerDetails: React.FC = () => {
   const localParams = useLocalSearchParams();
@@ -22,7 +31,7 @@ const TickerDetails: React.FC = () => {
       try {
         const data = await getTickerDetails(ticker as string);
         setDetails(data.results);
-      } catch (error : any) {
+      } catch (error: any) {
         setError(`Failed to fetch ticker details: ${error.message || error}`);
       } finally {
         setLoading(false);
@@ -58,47 +67,87 @@ const TickerDetails: React.FC = () => {
 
   return (
     <ThemedView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.content}
+      >
         <View style={styles.header}>
           {details?.branding?.icon_url ? (
-            <Image source={{ uri: `${details.branding.icon_url}?apiKey=${API_KEY}` }} style={styles.logo} />
+            <Image
+              source={{ uri: `${details.branding.icon_url}?apiKey=${API_KEY}` }}
+              style={styles.logo}
+            />
           ) : (
             <ThemedContainer style={styles.placeholderLogo}>
-              <ThemedText style={styles.placeholderText}>{details?.ticker?.substring(0, 2)}</ThemedText>
+              <ThemedText style={styles.placeholderText}>
+                {details?.ticker?.substring(0, 2)}
+              </ThemedText>
             </ThemedContainer>
           )}
           <View style={styles.headerText}>
-            <ThemedText type='title' style={styles.title}>{details?.name ?? 'N/A'} ({details?.ticker ?? 'N/A'})</ThemedText>
-            <ThemedText style={styles.subtitle}>{details?.type ?? 'N/A'} - {details?.primary_exchange ?? 'N/A'}</ThemedText>
+            <ThemedText type="title" style={styles.title}>
+              {details?.name ?? "N/A"} ({details?.ticker ?? "N/A"})
+            </ThemedText>
+            <ThemedText style={styles.subtitle}>
+              {details?.type ?? "N/A"} - {details?.primary_exchange ?? "N/A"}
+            </ThemedText>
           </View>
         </View>
-        <ThemedText style={styles.description}>{details?.description ?? 'N/A'}</ThemedText>
-        <TouchableOpacity onPress={() => Linking.openURL(details?.homepage_url ?? '#')}>
-          <ThemedText type="link" style={styles.link}>Homepage: {details?.homepage_url ?? 'N/A'}</ThemedText>
+        <ThemedText style={styles.description}>
+          {details?.description ?? "N/A"}
+        </ThemedText>
+        <TouchableOpacity
+          onPress={() => Linking.openURL(details?.homepage_url ?? "#")}
+        >
+          <ThemedText type="link" style={styles.link}>
+            Homepage: {details?.homepage_url ?? "N/A"}
+          </ThemedText>
         </TouchableOpacity>
         <ThemedContainer style={styles.detailSection}>
           <ThemedText style={styles.sectionTitle}>Company Details</ThemedText>
-          <DetailRow label="CIK" value={details?.cik ?? 'N/A'} />
-          <DetailRow label="Market" value={details?.market ?? 'N/A'} />
-          <DetailRow label="Market Cap" value={`$${details?.market_cap?.toLocaleString() ?? 'N/A'}`} />
-          <DetailRow label="Currency" value={details?.currency_name?.toUpperCase() ?? 'N/A'} />
-          <DetailRow label="Locale" value={details?.locale?.toUpperCase() ?? 'N/A'} />
-          <DetailRow label="Phone" value={details?.phone_number ?? 'N/A'} />
-          <DetailRow label="Employees" value={details?.total_employees?.toLocaleString() ?? 'N/A'} />
-          <DetailRow label="SIC Code" value={`${details?.sic_code ?? 'N/A'}`} />
-          <DetailRow label="SIC Description" value={`${details?.sic_description ?? 'N/A'}`} />
+          <DetailRow label="CIK" value={details?.cik ?? "N/A"} />
+          <DetailRow label="Market" value={details?.market ?? "N/A"} />
+          <DetailRow
+            label="Market Cap"
+            value={`$${details?.market_cap?.toLocaleString() ?? "N/A"}`}
+          />
+          <DetailRow
+            label="Currency"
+            value={details?.currency_name?.toUpperCase() ?? "N/A"}
+          />
+          <DetailRow
+            label="Locale"
+            value={details?.locale?.toUpperCase() ?? "N/A"}
+          />
+          <DetailRow label="Phone" value={details?.phone_number ?? "N/A"} />
+          <DetailRow
+            label="Employees"
+            value={details?.total_employees?.toLocaleString() ?? "N/A"}
+          />
+          <DetailRow label="SIC Code" value={`${details?.sic_code ?? "N/A"}`} />
+          <DetailRow
+            label="SIC Description"
+            value={`${details?.sic_description ?? "N/A"}`}
+          />
         </ThemedContainer>
         <ThemedContainer style={styles.detailSection}>
           <ThemedText style={styles.sectionTitle}>Address</ThemedText>
-          <ThemedText>{details?.address?.address1 ?? 'N/A'}</ThemedText>
-          <ThemedText>{details?.address?.city ?? 'N/A'}, {details?.address?.state ?? 'N/A'} {details?.address?.postal_code ?? 'N/A'}</ThemedText>
+          <ThemedText>{details?.address?.address1 ?? "N/A"}</ThemedText>
+          <ThemedText>
+            {details?.address?.city ?? "N/A"},{" "}
+            {details?.address?.state ?? "N/A"}{" "}
+            {details?.address?.postal_code ?? "N/A"}
+          </ThemedText>
         </ThemedContainer>
       </ScrollView>
     </ThemedView>
   );
 };
 
-const DetailRow: React.FC<{ label: string, value: string }> = ({ label, value }) => (
+const DetailRow: React.FC<{ label: string; value: string }> = ({
+  label,
+  value,
+}) => (
   <View style={styles.detailRow}>
     <ThemedText style={styles.detailLabel}>{label}</ThemedText>
     <ThemedText style={styles.detailValue}>{value}</ThemedText>
@@ -115,29 +164,29 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   errorContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   errorText: {
-    color: 'red',
+    color: "red",
     fontSize: 16,
   },
   noDetailsContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   noDetailsText: {
     fontSize: 16,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 20,
   },
   headerText: {
@@ -146,7 +195,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    flexWrap: 'wrap',
+    flexWrap: "wrap",
   },
   subtitle: {
     fontSize: 16,
@@ -160,13 +209,13 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   placeholderText: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
   },
   description: {
     fontSize: 16,
@@ -183,20 +232,20 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   detailRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 5,
   },
   detailLabel: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   detailValue: {
     flex: 1,
-    textAlign: 'right',
+    textAlign: "right",
   },
 });
 
