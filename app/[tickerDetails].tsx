@@ -22,8 +22,8 @@ const TickerDetails: React.FC = () => {
       try {
         const data = await getTickerDetails(ticker as string);
         setDetails(data.results);
-      } catch (error) {
-        setError('Failed to fetch ticker details');
+      } catch (error : any) {
+        setError(`Failed to fetch ticker details: ${error.message || error}`);
       } finally {
         setLoading(false);
       }
